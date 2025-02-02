@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Usuario {
+  id           String     @id @default(uuid())
+  nome         String
+  email        String     @unique
+  senha        String
+  tipo         String     @default("USUARIO") // ADMIN, ORGANIZADOR, USUARIO
+  ingressos    Ingresso[]
+  cupons       Cupom[]
+  eventos      Evento[]
+  criadoEm     DateTime   @default(now())
+  atualizadoEm DateTime   @updatedAt
+}
+
+model Evento {
+  id                   String     @id @default(uuid())
+  nome                 String
+  descricao            String
+  data                 DateTime
+  local                String
+  preco                Float
+  ingressosDisponiveis Int
+  organizador          Usuario    @relation(fields: [organizadorId], references: [id])
+  organizadorId        String
+  ingressos            Ingresso[]
+  criadoEm             DateTime   @default(now())
+  atualizadoEm         DateTime   @updatedAt
+  cupons               Cupom[]    
+}
+
+model Ingresso {
+  id           String   @id @default(uuid())
+  usuario      Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId    String
+  evento       Evento   @relation(fields: [eventoId], references: [id])
+  eventoId     String
+  status       String   @default("DISPONIVEL") // DISPONIVEL, VENDIDO, UTILIZADO, CANCELADO
+  cupom        Cupom?   @relation(fields: [cupomId], references: [id])
+  cupomId      String?
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Cupom {
+  id           String     @id @default(uuid())
+  codigo       String     @unique
+  tipoDesconto String // PERCENTUAL ou FIXO
+  valor        Float
+  validoAte    DateTime
+  usado        Boolean    @default(false)
+  criadoPor    Usuario    @relation(fields: [criadoPorId], references: [id])
+  criadoPorId  String
+  evento       Evento?    @relation(fields: [eventoId], references: [id])
+  eventoId     String?
+  ingressos    Ingresso[]
+  criadoEm     DateTime   @default(now())
+  atualizadoEm DateTime   @updatedAt
+}
