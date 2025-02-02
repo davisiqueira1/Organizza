@@ -4,14 +4,14 @@ const prisma = new PrismaClient()
 const app = express();
 
 // const eventRoutes = require('./routes/events');
-// const userRoutes = require('./routes/usuarios');
+const userRoutes = require('./routes/usuarios');
 // const ticketRoutes = require('./routes/ingressos');
 // const couponRoutes = require('./routes/cupons');
 
 app.use(express.json());
 
 // app.use(eventRoutes);
-// app.use(userRoutes);
+app.use(userRoutes);
 // app.use(ticketRoutes);
 // app.use(couponRoutes);
 
