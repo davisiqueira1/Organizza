@@ -1,0 +1,25 @@
+{
+  "name": "organizza",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davisiqueira1/Organizza.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davisiqueira1/Organizza/issues"
+  },
+  "homepage": "https://github.com/davisiqueira1/Organizza#readme",
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "express": "^4.21.2",
+    "prisma": "^6.3.0"
+  }
+}
